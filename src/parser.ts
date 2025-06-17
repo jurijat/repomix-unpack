@@ -7,6 +7,8 @@ export class RepomixParser {
   private static readonly FILE_PREFIX = 'File: ';
   private static readonly FILES_SECTION_HEADER = 'Files';
   private static readonly LINE_NUMBER_PATTERN = /^\s*\d+→/;
+  private static readonly END_OF_CODEBASE_MARKER = '================================================================';
+  private static readonly END_OF_CODEBASE_TEXT = 'End of Codebase';
 
   async parseFile(filePath: string, onProgress?: (progress: ParseProgress) => void): Promise<FileEntry[]> {
     const fileEntries: FileEntry[] = [];
@@ -40,6 +42,24 @@ export class RepomixParser {
       }
 
       if (!inFilesSection) {
+        continue;
+      }
+
+      // Check for "End of Codebase" text which indicates we should stop
+      if (line === RepomixParser.END_OF_CODEBASE_TEXT) {
+        // We've reached the end marker - save current file if exists
+        if (currentFile && inFileContent) {
+          // Trim any trailing empty lines from the content
+          currentFile.content = currentFile.content.trimEnd();
+          fileEntries.push(currentFile);
+          currentFile = null;
+          inFileContent = false;
+        }
+        break; // Stop processing
+      }
+
+      // Skip the long separators (they appear in header sections too)
+      if (line === RepomixParser.END_OF_CODEBASE_MARKER) {
         continue;
       }
 
@@ -85,8 +105,10 @@ export class RepomixParser {
       }
     }
 
-    // Handle last file if exists
+    // Handle last file if exists (in case there's no end marker)
     if (currentFile && inFileContent) {
+      // Trim any trailing empty lines from the content
+      currentFile.content = currentFile.content.trimEnd();
       fileEntries.push(currentFile);
     }
 
