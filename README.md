@@ -121,6 +121,7 @@ File: another/file.ext
 ## Error Handling
 
 The tool handles various error scenarios:
+
 - Invalid Repomix file format
 - Missing input file
 - No write permissions
@@ -129,4 +130,4 @@ The tool handles various error scenarios:
 
 ## License
 
-MIT
+Do whatever you want
