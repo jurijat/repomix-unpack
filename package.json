@@ -18,7 +18,15 @@
     "extract",
     "files"
   ],
-  "author": "",
+  "author": "Juri Jatschmenow <juri.jatschmenow@raiok.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jurijat/repomix-unpack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jurijat/repomix-unpack/issues"
+  },
+  "homepage": "https://github.com/jurijat/repomix-unpack#readme",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.0.0",

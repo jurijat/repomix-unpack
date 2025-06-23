@@ -1,0 +1,37 @@
+# Source files
+src/
+*.ts
+!dist/**/*.d.ts
+
+# Development files
+tsconfig.json
+.gitignore
+.git/
+.github/
+.claude/
+.prettierrc
+
+# Development dependencies
+node_modules/
+*.log
+*.tmp
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test files
+test/
+tests/
+*.test.ts
+*.spec.ts
+
+# Examples
+examples/
+docs/
+repomix-output.txt
+
+# Build artifacts not needed
+*.tsbuildinfo
